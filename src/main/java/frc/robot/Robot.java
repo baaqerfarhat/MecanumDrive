@@ -7,18 +7,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj.Talon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
 
-
-/** This is a demo program showing how to use Mecanum control with the MecanumDrive class. */
 public class Robot extends TimedRobot {
-  private static final int kFrontLeftChannel = 3;
-  private static final int kRearLeftChannel = 2;
-  private static final int kFrontRightChannel = 0;
-  private static final int kRearRightChannel = 1;
+
+  
+
 
   private static final int kJoystickChannel = 0;
 
@@ -27,17 +23,18 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    TalonSRX frontLeft = new TalonSRX(kFrontLeftChannel);
-    TalonSRX rearLeft = new TalonSRX(kRearLeftChannel);
-    TalonSRX frontRight = new TalonSRX(kFrontRightChannel);
-    TalonSRX rearRight = new TalonSRX(kRearRightChannel);
+
+    WPI_TalonSRX frontLeft = new WPI_TalonSRX(4);
+    WPI_TalonSRX rearLeft = new WPI_TalonSRX(3);
+    WPI_TalonSRX frontRight = new WPI_TalonSRX(1);
+    WPI_TalonSRX rearRight = new WPI_TalonSRX(2);
 
     // Invert the right side motors.
     // You may need to change or remove this to match your robot.
     frontRight.setInverted(true);
     rearRight.setInverted(true);
 
-    m_robotDrive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
+    m_robotDrive = new MecanumDrive(frontLeft, frontRight, rearLeft, rearRight);
 
     m_stick = new Joystick(kJoystickChannel);
   }
